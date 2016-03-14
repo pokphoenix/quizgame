@@ -66,7 +66,6 @@ angular.module('starter.controllers', [])
         $rootScope.UserName = $localstorage.get('name');
         $rootScope.UserMoney = $localstorage.get('money');
 
-
         $scope.showPopup = function () {
             $scope.data = {};
             // An elaborate, custom popup
@@ -236,7 +235,19 @@ angular.module('starter.controllers', [])
 
     })
 
-    .controller('PlayCtrl', function ($scope,$rootScope,$localstorage,$http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,$stateParams) {
+    .filter('getById', function() {
+        return function(input, id) {
+            var i=0, len=input.length;
+            for (; i<len; i++) {
+                if (+input[i].id == +id) {
+                    return input[i];
+                }
+            }
+            return null;
+        }
+    })
+
+    .controller('PlayCtrl', function ($scope,$rootScope,$localstorage,$http, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,$stateParams,$filter) {
         //
         //$rootScope.UserLastLogin = $localstorage.get('lastLogin');
         //$rootScope.UserName = $localstorage.get('name');
@@ -262,12 +273,7 @@ angular.module('starter.controllers', [])
 
         $scope.onLoadGame = function () {
 
-            //for (var rd in $scope.question) {
-            //    var item = $scope.question[rd];
-            //    var choice = item.choice;
-            //    shuffleArray(choice);
-            //}
-            //shuffleArray($scope.question);
+
             $scope.disableSwipe();
         };
 
@@ -355,7 +361,16 @@ angular.module('starter.controllers', [])
 
                     console.log("result", result);
 
-                   // $scope.question = result.data;
+                    $scope.question = result.data;
+
+
+                    for (var rd in $scope.question) {
+                        var item = $scope.question[rd];
+                        var choice = item.choice;
+                        shuffleArray(choice);
+                    }
+                    shuffleArray($scope.question);
+
                 });
         }
 
@@ -423,23 +438,39 @@ angular.module('starter.controllers', [])
 
             console.log("selectAnswer", qid, "select id : " + aid);
 
-            if (qid == 2 && aid == 2) {
+
+            var found = $filter('getById')($scope.question, qid);
+            console.log('found',found.answerId);
+
+            if (found.answerId==aid){
                 $scope.successModal();
-
-            } else if (qid == 1 && aid == 1) {
-                $scope.showConfirm();
-
-
-            } else if (qid == 3 && aid == 1) {
-                $scope.showAlert();
-
-
-            } else if (qid == 4 && aid == 1) {
-                $scope.showPopup();
-
-            } else {
+            }else{
                 $scope.failModal();
             }
+
+
+
+           // $scope.selected = JSON.stringify(found);
+
+
+
+            //if (qid == 2 && aid == 2) {
+            //    $scope.successModal();
+            //
+            //} else if (qid == 1 && aid == 1) {
+            //    $scope.showConfirm();
+            //
+            //
+            //} else if (qid == 3 && aid == 1) {
+            //    $scope.showAlert();
+            //
+            //
+            //} else if (qid == 4 && aid == 1) {
+            //    $scope.showPopup();
+            //
+            //} else {
+            //    $scope.failModal();
+            //}
 
             //console.log("selectAnswer",$scope.q.id) ;
             //console.log("selectAnswer",$scope.q.id) ;

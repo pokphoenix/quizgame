@@ -4,6 +4,7 @@
       "title": "Who is Aum Patcharapa?",
       "id": "5",
       "img": "",
+      "answerId" : "2",
       "choice": [
         {
           "id": "1",
@@ -55,6 +56,7 @@
       "title": "13 + 5 = ?",
       "id": "2",
       "img": "",
+      "answerId": "2",
       "choice": [
         {
           "id": "1",
@@ -78,6 +80,7 @@
       "title": "ng-if is a boolean",
       "id": "3",
       "img": "",
+      "answerId" : "1",
       "choice": [
         {
           "id": "1",
@@ -90,9 +93,10 @@
       ]
     },
     {
-      "title": "What isn t Mobile Platform",
+      "title": "What isn/' t Mobile Platform",
       "id": "4",
       "img": "",
+      "answerId" : "3",
       "choice": [
         {
           "id": "1",
