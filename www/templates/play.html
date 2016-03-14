@@ -1,0 +1,117 @@
+
+<ion-view view-title="<i class='button button-icon money-icon'></i> {{ money }} " hide-back-button="false"  >
+  <ion-content style="background: #EEE;">
+
+
+
+
+    <ion-slide-box  auto-play="false" does-continue="false" show-pager="false" ng-init="onLoadGame();">
+      <ion-slide ng-repeat=" q in question " repeat-done="repeatDone(q.choice);" >
+
+
+
+
+        <div class="card " >
+          <div class="item item-text-wrap">
+            {{ q.title }}
+          </div>
+          <div class="item item-image" ng-if="q.img" >
+            <img src="{{ q.img }}"  style="height:200px;width: auto;"  >
+          </div>
+
+          <div class="item item-text-wrap" ng-if="q.choice.length==4">
+            <div class="row row-center" >
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[0].img }}" class="cur img-choice"  ng-if="q.choice[0].img" ng-click="selectAnswer(q.id,q.choice[0].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[0].id)" ng-hide="q.choice[0].img" >
+                  {{ q.choice[0].name }}
+                </button>
+              </div>
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[1].img }}" class="cur img-choice"  ng-if="q.choice[1].img" ng-click="selectAnswer(q.id,q.choice[1].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[1].id)" ng-hide="q.choice[1].img" >
+                  {{ q.choice[1].name }}
+                </button>
+              </div>
+            </div>
+            <div class="row row-center"   >
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[2].img }}" class="cur img-choice"  ng-if="q.choice[2].img" ng-click="selectAnswer(q.id,q.choice[2].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[2].id)" ng-hide="q.choice[2].img" >
+                  {{ q.choice[2].name }}
+                </button>
+              </div>
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[3].img }}" class="cur img-choice"  ng-if="q.choice[3].img" ng-click="selectAnswer(q.id,q.choice[3].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[3].id)" ng-hide="q.choice[3].img" >
+                  {{ q.choice[3].name }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item item-text-wrap" ng-if="q.choice.length==2">
+            <div class="row row-center"   >
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[0].img }}" class="cur img-choice"  ng-if="q.choice[0].img" ng-click="selectAnswer(q.id,q.choice[0].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[0].id)" ng-hide="q.choice[0].img" >
+                  {{ q.choice[0].name }}
+                </button>
+
+              </div>
+              <div class="col col-50" >
+                <img ng-src="{{ q.choice[1].img }}" class="cur img-choice"  ng-if="q.choice[1].img" ng-click="selectAnswer(q.id,q.choice[1].id)">
+                <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[1].id)" ng-hide="q.choice[1].img" >
+                  {{ q.choice[1].name }}
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="item item-text-wrap" ng-if="q.choice.length==3">
+            <div class="col col-offset-25 col-50" >
+              <img ng-src="{{ q.choice[0].img }}" class="cur img-choice"  ng-if="q.choice[0].img" ng-click="selectAnswer(q.id,q.choice[0].id)">
+              <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[0].id)" ng-hide="q.choice[0].img" >
+                {{ q.choice[0].name }}
+              </button>
+
+            </div>
+            <div class="col col-offset-25 col-50" >
+              <img ng-src="{{ q.choice[1].img }}" class="cur img-choice"  ng-if="q.choice[1].img" ng-click="selectAnswer(q.id,q.choice[1].id)">
+              <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[1].id)" ng-hide="q.choice[1].img" >
+                {{ q.choice[1].name }}
+              </button>
+
+            </div>
+            <div class="col col-offset-25 col-50" >
+              <img ng-src="{{ q.choice[2].img }}" class="cur img-choice"  ng-if="q.choice[2].img" ng-click="selectAnswer(q.id,q.choice[2].id)">
+              <button class="button button-block button-positive" ng-click="selectAnswer(q.id,q.choice[2].id)" ng-hide="q.choice[2].img" >
+                {{ q.choice[2].name }}
+              </button>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+      </ion-slide>
+
+    </ion-slide-box>
+
+
+
+
+
+
+
+
+
+
+
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,69 @@
+.img-responsive{width: 100%;height: auto;}
+.cur { cursor: pointer; }
+.cur:hover{ border: 1px solid #CCC; }
+.img-choice{ height: 200px; width: auto; margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.c {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+
+
+.money-icon {
+    content: url('http://png-5.findicons.com/files/icons/192/finance/128/coins.png');
+    width: 48px;
+}
+
+
+
+
+/* #### Mobile Phones Portrait #### */
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+
+}
+
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+
+}
+
+/* #### Mobile Phones Portrait or Landscape #### */
+@media screen and (max-device-width: 640px){
+
+}
+
+/* #### iPhone 4+ Portrait or Landscape #### */
+@media screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+    .img-choice{ height: 120px; width: auto; margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}
+
+/* #### iPhone 5 Portrait or Landscape #### */
+@media (device-height: 568px) and (device-width: 320px) and (-webkit-min-device-pixel-ratio: 2){
+    .img-choice{ height: 120px; width: auto; margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+}
+
+/* #### iPhone 6 and 6 plus Portrait or Landscape #### */
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3){
+
+}
+
+/* #### Tablets Portrait or Landscape #### */
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px){
+
+}
+
+/* #### Desktops #### */
+@media screen and (min-width: 1024px){
+
+}
+

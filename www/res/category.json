@@ -1,0 +1,25 @@
+{ "data":[
+  {
+    "id": 1,
+    "album": "Gotta Be Somebody",
+    "artist": "Nickelback",
+    "image": "/img/nockelback.jpg"
+  },
+  {
+    "id": 2,
+    "album": "Dark Horse",
+    "artist": "Nickelback",
+    "image": "/img/darkhourse.jpg"
+  },
+  {
+    "id": 3,
+    "album": "Someday",
+    "artist": "Nickelback",
+    "image": "/img/someday.jpg"
+  },
+  {
+    "id": 4,
+    "album": "All The Right Reasons",
+    "artist": "Nickelback",
+    "image": "/img/allrightreason.jpg"
+  }]}
