@@ -79,13 +79,17 @@ angular.module('starter.controllers', [])
                     {
                         text: '<b>OK</b>',
                         type: 'button-positive',
+                        onClick: function (e){
+                            myPopup.close();
+                        },
                         onTap: function (e) {
-                            if (!$scope.data.wifi) {
-                                //don't allow the user to close unless he enters wifi password
-                                e.preventDefault();
-                            } else {
-                                return $scope.data.wifi;
-                            }
+                            //if (!$scope.data.wifi) {
+                            //    //don't allow the user to close unless he enters wifi password
+                            //    e.preventDefault();
+                            //} else {
+                            //    return $scope.data.wifi;
+                            //}
+                            return null;
                         }
                     }
                 ]
@@ -93,9 +97,9 @@ angular.module('starter.controllers', [])
             myPopup.then(function (res) {
                 console.log('Tapped!', res);
             });
-            $timeout(function () {
-                myPopup.close(); //close the popup after 3 seconds for some reason
-            }, 3000);
+            //$timeout(function () {
+            //    myPopup.close(); //close the popup after 3 seconds for some reason
+            //}, 3000);
         };
 
         console.log("UserName : "+$rootScope.UserName+" Money : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
