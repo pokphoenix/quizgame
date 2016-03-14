@@ -43,20 +43,11 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('GameCtrl', function ($rootScope,$scope, $ionicHistory,$localstorage) {
+    .controller('GameCtrl', function ($rootScope,$scope, $ionicHistory) {
         $scope.myGoBack = function () {
             $ionicHistory.goBack();
         };
-
-
-
-
-
-
        // console.log("UserName : "+$rootScope.UserName+" Money : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
-
-
-
     })
 
 
@@ -258,6 +249,8 @@ angular.module('starter.controllers', [])
         //$rootScope.UserMoney = ;
 
         $rootScope.money = parseInt($localstorage.get('money')) ;
+        $scope.totalScore = 0 ;
+        $scope.slideCount = 0 ;
 
 
         $scope.options = {
@@ -289,65 +282,7 @@ angular.module('starter.controllers', [])
         };
 
 
-        // Triggered on a button click, or some other target
-        $scope.showPopup = function () {
-            $scope.data = {};
-            // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                template: '<input type="password" ng-model="data.wifi">',
-                title: 'Enter Wi-Fi Password',
-                subTitle: 'Please use normal things',
-                scope: $scope,
-                buttons: [
-                    {text: 'Cancel'},
-                    {
-                        text: '<b>Save</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            if (!$scope.data.wifi) {
-                                //don't allow the user to close unless he enters wifi password
-                                e.preventDefault();
-                            } else {
-                                return $scope.data.wifi;
-                            }
-                        }
-                    }
-                ]
-            });
-            myPopup.then(function (res) {
-                console.log('Tapped!', res);
-            });
-            $timeout(function () {
-                myPopup.close(); //close the popup after 3 seconds for some reason
-            }, 3000);
-        };
 
-        // A confirm dialog
-        $scope.showConfirm = function () {
-            var confirmPopup = $ionicPopup.confirm({
-                title: 'Consume Ice Cream',
-                template: 'Are you sure you want to eat this ice cream?'
-            });
-            confirmPopup.then(function (res) {
-                if (res) {
-                    console.log('You are sure');
-                } else {
-                    console.log('You are not sure');
-                }
-            });
-        };
-
-        // An alert dialog
-        $scope.showAlert = function () {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Don\'t eat that!',
-                template: 'It might taste good'
-            });
-
-            alertPopup.then(function (res) {
-                console.log('Thank you for not eating my delicious ice cream cone');
-            });
-        };
 
         loadData();
 
@@ -359,6 +294,8 @@ angular.module('starter.controllers', [])
             }
             //console.log("in loadData");
             //var serviceUrl = 'file:///android_asset/www';
+
+            console.log('slideCnt : '+$scope.slideCount);
 
             $http.get(url+'/quiz/quiz_'+$stateParams.playId+'.json')
                 .success(function (result) {
@@ -422,18 +359,15 @@ angular.module('starter.controllers', [])
 
         var shuffleArray = function (array) {
             var m = array.length, t, i;
-
             // While there remain elements to shuffle
             while (m) {
                 // Pick a remaining element…
                 i = Math.floor(Math.random() * m--);
-
                 // And swap it with the current element.
                 t = array[m];
                 array[m] = array[i];
                 array[i] = t;
             }
-
             return array;
         };
 
@@ -500,7 +434,32 @@ angular.module('starter.controllers', [])
         $scope.closeModal = function () {
             $scope.fail.hide();
             $scope.success.hide();
-            $ionicSlideBoxDelegate.next();
+
+            $scope.slideCount =  ($ionicSlideBoxDelegate.slidesCount() ) ;
+
+            var slideCur = $ionicSlideBoxDelegate.currentIndex();
+            slideCur++ ;
+
+            console.log('slideCnt : '+$scope.slideCount+' slideCur : '+slideCur);
+
+            if(slideCur<$scope.slideCount) {
+                $ionicSlideBoxDelegate.next();
+
+                $scope.slideCount -- ;
+
+                $scope.percent =    Math.floor(($scope.totalScore*100)/$scope.slideCount)+" % " ;
+                console.log("Next Move!! total : "+ $scope.totalScore+" slide Count : "+$scope.slideCount+" = "+ $scope.percent );
+            }else{
+                $ionicSlideBoxDelegate.stop();
+                console.log("Finish !!");
+
+
+            }
+
+            //console.log('slideCnt : '+slideCnt+' slideCur : '+slideCur);
+
+
+
         };
 
 
@@ -519,6 +478,7 @@ angular.module('starter.controllers', [])
             });
 
 
+            $scope.totalScore ++ ;
 
             $rootScope.money += 5;
             $localstorage.set('money', $rootScope.money);
