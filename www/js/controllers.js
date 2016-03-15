@@ -269,8 +269,6 @@ angular.module('starter.controllers', [])
         };
 
         $scope.onLoadGame = function () {
-
-
             $scope.disableSwipe();
         };
 
@@ -288,6 +286,7 @@ angular.module('starter.controllers', [])
 
 
         function loadData(){
+
             var url = "";
             if(ionic.Platform.isAndroid()){
                 url = "file:///android_asset/www";
@@ -361,7 +360,7 @@ angular.module('starter.controllers', [])
             var m = array.length, t, i;
             // While there remain elements to shuffle
             while (m) {
-                // Pick a remaining element…
+                // Pick a remaining elementï¿½
                 i = Math.floor(Math.random() * m--);
                 // And swap it with the current element.
                 t = array[m];
@@ -555,4 +554,10 @@ angular.module('starter.controllers', [])
 
     .controller('PlaylistCtrl', function ($scope, $stateParams) {
     })
+
+    .controller('SlideCtrl', function ($scope, $stateParams) {
+        console.log('1111', 1111);
+    })
+
+
 ;

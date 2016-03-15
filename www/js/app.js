@@ -52,7 +52,6 @@ angular.module('starter', [
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-
       .state('app', {
         url: '/app',
         abstract: true,

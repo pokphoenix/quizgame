@@ -1,6 +1,16 @@
 angular.module('semi', ['ui.router'])
 .config(['$stateProvider', function($stateProvider){
     $stateProvider
+        .state('semi', {
+            url: '/semi',
+            abstract: true,
+            views: {
+                'menuContent': {
+                    templateUrl: 'semi/templates/semi.html',
+                    //controller: 'SemiCtrl'
+                }
+            }
+        })
         .state('semi.games', {
             url: '/semi/games',
             views: {
