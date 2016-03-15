@@ -10,7 +10,10 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services',
   'ionic.utils',
-  'app.semi' // load semi module
+
+  // load semi module
+  'semi',
+  'semi.controllers',
 ])
 
 .run(function($ionicPlatform) {

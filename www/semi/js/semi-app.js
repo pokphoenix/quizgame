@@ -1,12 +1,21 @@
-angular.module('app.semi', ['ui.router'])
+angular.module('semi', ['ui.router'])
 .config(['$stateProvider', function($stateProvider){
     $stateProvider
-        .state('game.category', {
-            url: '/category',
+        .state('semi.games', {
+            url: '/semi/games',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/category.html',
-                    controller: 'CategoryCtrl'
+                    templateUrl: 'semi/templates/air-hockey.html',
+                    controller: 'AirHockeyCtrl'
+                }
+            }
+        })
+        .state('semi.games.airHockey', {
+            url: '/semi/games/air-hockey',
+            views: {
+                'menuContent': {
+                    templateUrl: 'semi/templates/air-hockey.html',
+                    controller: 'AirHockeyCtrl'
                 }
             }
         })
