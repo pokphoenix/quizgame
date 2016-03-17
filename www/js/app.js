@@ -5,7 +5,16 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ionic.utils'])
+angular.module('starter', [
+  'ionic',
+  'starter.controllers',
+  'starter.services',
+  'ionic.utils',
+
+  // load semi module
+  'semi',
+  'semi.controllers',
+])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -20,10 +29,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-
-
-
-
 
     //$localstorage.set('name', 'Max');
     //console.log($localstorage.get('name'));
@@ -46,7 +51,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-
 
       .state('app', {
         url: '/app',
