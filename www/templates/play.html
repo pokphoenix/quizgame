@@ -1,6 +1,6 @@
 
-<ion-view view-title="<i class='button button-icon money-icon'></i> {{ money }} " hide-back-button="false"  >
-  <ion-content style="background: #EEE;">
+<ion-view view-title="<i class='button button-icon money-icon'></i> {{ money }} " hide-back-button="false"  cache-view="false" >
+  <ion-content style="background: #EEE;" ng-controller="PlayCtrl">
 
 
 
@@ -93,7 +93,13 @@
             </div>
           </div>
 
+          <div class="item item-text-wrap">
+            <div class="col col-offset-25 col-50 text-center"  >
 
+              {{counter}}
+
+            </div>
+          </div>
 
         </div>
 
@@ -111,7 +117,7 @@
                 {{ totalScore +" of "+slideCount }}
                 <br>
                 <h3><strong>{{ percent }}</strong></h3>
-                <a class="button button-block button-positive" href="#/tab/dash">
+                <a class="button button-block button-positive" ng-click="backtomain();">
                   จบเกม
                 </a>
               </div>

@@ -25,8 +25,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
 
 
 
-
-
     //$localstorage.set('name', 'Max');
     //console.log($localstorage.get('name'));
     //$localstorage.setObject('post', {
@@ -76,12 +74,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','i
 
       })
 
+      .state('game.mode', {
+        url: '/mode',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mode.html',
+            controller: 'ModeCtrl'
+          }
+        }
+
+      })
+
+
       .state('game.play', {
         url: '/play/:playId',
         views: {
           'menuContent': {
-            templateUrl: 'templates/play.html',
-            controller: 'PlayCtrl'
+            templateUrl: 'templates/play.html'
           }
         }
 

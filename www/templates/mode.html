@@ -1,0 +1,115 @@
+
+<ion-view view-title=" เลือกหมวดหมู่คำถาม <i class='button button-icon money-icon'></i> {{ money }} " cache-view="false" >
+  <ion-content ng-init="loadData();">
+
+
+    <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="doRefresh()">
+    </ion-refresher>
+
+
+
+
+      <div ng-repeat="item in items">
+
+          <div class="row" ng-if="$index % 3 == 0">
+
+              <div class="col col-33" >
+                  <a href="#/game/play/{{items[$index].id}}" class="thumb">
+                      <img ng-src="{{ items[$index].image[items[$index].star].img }}" class="cur img-33" ng-if="items[$index].unlock==1"  >
+                  </a>
+                  <img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[$index].unlock==0" >
+              </div>
+              <div class="col col-33" >
+                  <a href="#/game/play/{{items[$index + 1].id}}" class="thumb">
+                      <img ng-src="{{ items[$index + 1].image[items[$index + 1].star].img }}" class="cur img-33" ng-if="items[$index + 1].unlock==1" >
+                  </a>
+                  <img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[$index + 1].unlock==0" >
+              </div>
+              <div class="col col-33" >
+                  <a href="#/game/play/{{items[$index + 2].id}}" class="thumb">
+                      <img ng-src="{{ items[$index + 2].image[items[$index + 2].star].img }}" class="cur img-33" ng-if="items[$index + 2].unlock==1" >
+                  </a>
+                  <img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[$index + 2].unlock==0" >
+              </div>
+
+          </div>
+
+      </div>
+
+
+
+
+
+      <!--<div class="row" >-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[3].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[3].image[items[3].star].img }}" class="cur img-33" ng-if="items[3].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[3].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[4].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[4].image[items[4].star].img }}" class="cur img-33" ng-if="items[4].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[4].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[5].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[5].image[items[5].star].img }}" class="cur img-33" ng-if="items[5].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[5].unlock==0" >-->
+          <!--</div>-->
+      <!--</div>-->
+
+      <!--<div class="row" >-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[6].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[6].image[items[6].star].img }}" class="cur img-33" ng-if="items[6].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[6].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[7].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[7].image[items[7].star].img }}" class="cur img-33" ng-if="items[7].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[7].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[8].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[8].image[items[8].star].img }}" class="cur img-33" ng-if="items[8].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[8].unlock==0" >-->
+          <!--</div>-->
+      <!--</div>-->
+
+
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[9].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[9].image[items[9].star].img }}" class="cur img-33" ng-if="items[9].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[9].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[10].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[10].image[items[10].star].img }}" class="cur img-33" ng-if="items[10].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[10].unlock==0" >-->
+          <!--</div>-->
+          <!--<div class="col col-33" >-->
+              <!--<a href="#/game/play/{{items[11].id}}" class="thumb">-->
+                  <!--<img ng-src="{{ items[11].image[items[11].star].img }}" class="cur img-33" ng-if="items[11].unlock==1" >-->
+              <!--</a>-->
+              <!--<img ng-src="/img/ionic.png" class="cur img-33" ng-if="items[11].unlock==0" >-->
+          <!--</div>-->
+
+
+
+
+
+
+
+
+  </ion-content>
+</ion-view>
