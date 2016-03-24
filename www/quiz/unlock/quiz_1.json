@@ -1,0 +1,33 @@
+{
+  "data": [
+    {
+      "title": "Who is Aum Patcharapa?",
+      "id": "5",
+      "img": "",
+      "answerId" : "2",
+      "choice": [
+        {
+          "id": "1",
+          "name": "pat",
+          "img": "http://dodeden.com/2013/wp-content/uploads/2015/02/p61-600x600.jpg"
+        },
+        {
+          "id": "2",
+          "name": "aum ",
+          "img": "http://f.ptcdn.info/238/009/000/1378204583-image-o.jpg"
+        },
+        {
+          "id": "3",
+          "name": "min",
+          "img": "http://100sexiest.fhm.in.th/2014/images/winner022/thumb-03.jpg"
+        },
+        {
+          "id": "4",
+          "name": "atom",
+          "img": "http://f.ptcdn.info/466/036/000/nwbhsncudZGneFFo9Ja-o.jpg"
+        }
+      ]
+    }
+
+  ]
+}

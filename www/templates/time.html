@@ -1,5 +1,5 @@
 
-<ion-view view-title=" เลือกหมวดหมู่คำถาม" cache-view="false" >
+<ion-view view-title="เลือกชุดคำถาม" cache-view="false" >
   <ion-content >
 
 
@@ -10,7 +10,7 @@
 
 
     <ion-list ng-init="loadData();">
-      <ion-item ng-repeat="item in items track by $index"  href="#/game/play/{{item.id}}"
+      <ion-item ng-repeat="item in items track by $index"  href="#/game/timeattack/{{item.id}}"
                 class="item item-thumbnail-left">
         <img ng-src="{{ item.image }}">
         <h2>{{ item.album }}</h2>

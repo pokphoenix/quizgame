@@ -1,6 +1,11 @@
 
-<ion-view view-title="คำถามชุดที่ {{ playId }} " hide-back-button="false"  cache-view="false" >
-  <ion-content style="background: #EEE;" ng-controller="PlayCtrl" class="has-subheader" >
+
+<ion-view view-title="time attack " hide-back-button="false"  cache-view="false" >
+
+  <ion-subheader-bar class="bar bar-subheader bar-dark"  >
+    <div class="title"  ><i class='button button-icon ion-clock'></i> <span ng-class="{txt_timeup:hurry}" style="" >{{ clock }}</span></div>
+  </ion-subheader-bar>
+  <ion-content style="background: #EEE;"  class="has-subheader" >
 
 
 
@@ -96,7 +101,7 @@
           <div class="item item-text-wrap">
             <div class="col col-offset-25 col-50 text-center"  >
 
-              {{counter}}
+              {{ action }}
 
             </div>
           </div>
@@ -114,7 +119,7 @@
             <div class="row row-center"   >
               <div class="col text-center" >
                 <h3>สรุปคะแนน</h3>
-                {{ totalScore +" of "+slideCount }}
+                {{ totalScore +" of "+lastSlide }}
                 <br>
                 <h3><strong>{{ percent }}</strong></h3>
                 <a class="button button-block button-positive" ng-click="backtomain();">

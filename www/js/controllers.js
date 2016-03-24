@@ -43,12 +43,25 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('GameCtrl', function ($rootScope,$scope, $ionicHistory,$timeout) {
+    .controller('GameCtrl', function ($rootScope,$scope,$localstorage, $ionicHistory,$timeout) {
+
+        $rootScope.coin = $localstorage.get('Coin');
+        $rootScope.life = $localstorage.get('Life');
+        $rootScope.exp = $localstorage.get('Exp');
+
         $scope.myGoBack = function () {
             $ionicHistory.goBack();
             $timeout.cancel($rootScope.mytimeout);
         };
-       // console.log("UserName : "+$rootScope.UserName+" Money : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
+
+
+        if ($rootScope.life<1){
+            return false;
+        }
+
+
+
+        // console.log("UserName : "+$rootScope.UserName+" Money : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
     })
 
 
@@ -56,7 +69,7 @@ angular.module('starter.controllers', [])
     .controller('DashCtrl', function ($rootScope,$scope,$localstorage,$filter,$ionicPopup,$timeout) {
         $rootScope.UserLastLogin = $localstorage.get('lastLogin');
         $rootScope.UserName = $localstorage.get('name');
-        $rootScope.UserMoney = $localstorage.get('money');
+        $rootScope.UserMoney = $localstorage.get('Coin');
 
         $scope.showPopup = function () {
             $scope.data = {};
@@ -64,7 +77,7 @@ angular.module('starter.controllers', [])
             var myPopup = $ionicPopup.show({
 
                 title: 'Login Dialy!!!',
-                subTitle: 'You receive 25 Money',
+                subTitle: 'You receive 25 Coin',
                 scope: $scope,
                 buttons: [
 
@@ -94,23 +107,21 @@ angular.module('starter.controllers', [])
             //}, 3000);
         };
 
-        console.log("UserName : "+$rootScope.UserName+" Money : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
+        console.log("UserName : "+$rootScope.UserName+" Coin : [ "+$rootScope.UserMoney+" ] LastLogin : ( "+$rootScope.UserLastLogin+" )" );
 
         var CurrentDate = $filter('date')(new Date(), 'yyyy-MM-dd');
+        var LastLogin = $filter('date')( new Date($localstorage.get('lastLogin'))  , 'yyyy-MM-dd') ;
 
 
-        var LastLogin = $localstorage.get('lastLogin');
+        console.log('CurrentDate : '+CurrentDate+' LastLogin : '+LastLogin);
 
         if(LastLogin!=CurrentDate){
-
-            console.log("Login!!! Get 25 Money");
-            $localstorage.set('lastLogin', CurrentDate) ;
-            var UserMoney = parseInt($localstorage.get('money'));
+            console.log("Login!!! Get 25 Coin");
+            $localstorage.set('lastLogin', $filter('date')(new Date(), 'yyyy-MM-dd H:m:s') ) ;
+            var UserMoney = parseInt($localstorage.get('Coin'));
             UserMoney += 25 ;
-            $localstorage.set('money', UserMoney) ;
-
+            $localstorage.set('Coin', UserMoney) ;
             $scope.showPopup();
-
         }
 
         // Triggered on a button click, or some other target
@@ -122,10 +133,10 @@ angular.module('starter.controllers', [])
 
     .controller('SearchCtrl', function ($scope,$http,$localstorage) {
 
-
-        $localstorage.set('name', 'Pok');
-        $localstorage.set('money', '100');
         $localstorage.set('lastLogin', '100');
+        $localstorage.set('Life', 100 ) ;
+        $localstorage.set('Exp', 100 ) ;
+        $localstorage.set('Coin', 100 ) ;
 
         var url = "";
         if(ionic.Platform.isAndroid()){
@@ -160,7 +171,6 @@ angular.module('starter.controllers', [])
         var currentStart = 0;
         $scope.MoreDataCanBeLoad = true;
         $scope.items = [];
-        $rootScope.money = parseInt($localstorage.get('money')) ;
 
         $scope.loadMoreData = function () {
             //$http.get('/more-items').success(function(items) {
@@ -205,6 +215,10 @@ angular.module('starter.controllers', [])
 
 
 
+            var Life = $localstorage.get('Life') ;
+            if (Life<1){
+                $location.path('/game/dash',true);
+            }
 
 
 
@@ -254,10 +268,6 @@ angular.module('starter.controllers', [])
         var currentStart = 0;
         $scope.MoreDataCanBeLoad = true;
         $scope.items = [];
-        $rootScope.money = parseInt($localstorage.get('money')) ;
-
-
-
 
         var url = "";
         if(ionic.Platform.isAndroid()){
@@ -285,19 +295,6 @@ angular.module('starter.controllers', [])
             //    });
         };
 
-        $scope.doRefresh = function () {
-
-
-            $timeout(function () {
-
-                $scope.items = $localstorage.getObject('gameMode');
-                $scope.$broadcast('scroll.refreshComplete');
-
-
-            }, 3000);
-
-
-        };
 
     })
 
@@ -311,420 +308,6 @@ angular.module('starter.controllers', [])
             }
             return null;
         }
-    })
-
-    .controller('PlayCtrl', function ($scope,$state,$rootScope,$location,$ionicViewService,$localstorage,$http,$ionicHistory, $ionicModal, $timeout, $ionicLoading, $ionicPopup, $ionicSlideBoxDelegate,$stateParams,$filter) {
-        //
-        //$rootScope.UserLastLogin = $localstorage.get('lastLogin');
-        //$rootScope.UserName = $localstorage.get('name');
-        //$rootScope.UserMoney = ;
-        $scope.mode = [];
-        $rootScope.money = parseInt($localstorage.get('money')) ;
-        $scope.totalScore = 0 ;
-        $scope.slideCount = 0 ;
-        $scope.counter = 5;
-        $rootScope.mytimeout = null; // the current timeoutID
-        $scope.onTimeout = function() {
-            if($scope.counter ===  0) {
-                $scope.$broadcast('timer-stopped', 0);
-                $timeout.cancel($rootScope.mytimeout);
-
-                $scope.selectAnswer(0,0);
-                console.log("Time Out!!!") ;
-
-                return;
-            }
-            $scope.counter--;
-            $rootScope.mytimeout = $timeout($scope.onTimeout, 1000);
-        };
-        $scope.startTimer = function() {
-            $rootScope.mytimeout = $timeout($scope.onTimeout, 1000);
-        };
-        // stops and resets the current timer
-        $scope.stopTimer = function() {
-            $scope.$broadcast('timer-stopped', $scope.counter);
-            $scope.counter = 5;
-            $timeout.cancel($rootScope.mytimeout);
-        };
-
-        $scope.$on('timer-stopped', function(event, remaining) {
-            if(remaining === 0) {
-
-            }
-            $timeout.cancel($rootScope.mytimeout);
-        });
-
-
-
-        $scope.options = {
-            loop: false,
-            speed: 500
-        };
-
-        $scope.repeatDone = function (choice) {
-            shuffleArray(choice);
-            $ionicSlideBoxDelegate.update();
-            //$ionicSlideBoxDelegate.slide($scope.week.length - 1, 1);
-        };
-
-        $scope.disableSwipe = function () {
-            $ionicSlideBoxDelegate.enableSlide(false);
-        };
-
-        $scope.onLoadGame = function () {
-
-            $scope.startTimer();
-            $scope.disableSwipe();
-        };
-
-        //$ionicSlideBoxDelegate.stop();
-        //$ionicSlideBoxDelegate.enableSlide(false);
-
-        $scope.slideChanged = function (index) {
-            $scope.slideIndex = index;
-        };
-
-
-        $scope.backtomain = function () {
-             $location.path('/tab/dash',true);
-        };
-
-
-
-        loadData();
-
-
-        function loadData(){
-
-
-            var url = "";
-            if(ionic.Platform.isAndroid()){
-                url = "file:///android_asset/www";
-            }
-            //console.log("in loadData");
-            //var serviceUrl = 'file:///android_asset/www';
-
-            console.log('slideCnt : '+$scope.slideCount);
-
-            $http.get(url+'/quiz/quiz_'+$stateParams.playId+'.json')
-                .success(function (result) {
-                    console.log("quiz result", result);
-                    $scope.question = result.data;
-
-                    for (var rd in $scope.question) {
-                        var item = $scope.question[rd];
-                        var choice = item.choice;
-                        shuffleArray(choice);
-                    }
-                    shuffleArray($scope.question);
-                });
-
-            //$http.get(url+'/res/mode.json')
-            //    .success(function (result) {
-            //        console.log("mode result", result);
-            //        $scope.mode = result.data;
-            //    });
-
-            $scope.mode = $localstorage.getObject('gameMode');
-
-        }
-
-
-
-        //$scope.question = [
-        //    {
-        //        title: 'Who is Aum Patcharapa?',
-        //        id: 5,
-        //        img: "",
-        //        choice: [{
-        //            id: 1,
-        //            name: "pat",
-        //            img: "http://dodeden.com/2013/wp-content/uploads/2015/02/p61-600x600.jpg"
-        //        }, {id: 2, name: "aum ", img: "http://f.ptcdn.info/238/009/000/1378204583-image-o.jpg"}, {
-        //            id: 3,
-        //            name: "min",
-        //            img: "http://100sexiest.fhm.in.th/2014/images/winner022/thumb-03.jpg"
-        //        }, {id: 4, name: "atom", img: "http://f.ptcdn.info/466/036/000/nwbhsncudZGneFFo9Ja-o.jpg"}]
-        //    },
-        //    {
-        //        title: 'What is color',
-        //        id: 1,
-        //        answerId: 4,
-        //        img: "http://www.thescreenmachineco.net/inks_&_process/screen_macine-CAD_cut_vinyl-color-Athletic_Gold-PMS_1235.png",
-        //        choice: [{id: 1, name: "Red"}, {id: 2, name: "Blue"}, {id: 3, name: "Green"}, {id: 4, name: "Gold"}]
-        //    },
-        //    {
-        //        title: '13 + 5 = ?',
-        //        id: 2,
-        //        img: "",
-        //        choice: [{id: 1, name: "17"}, {id: 2, name: "18"}, {id: 3, name: "19"}, {id: 4, name: "20"}]
-        //    },
-        //    {title: 'ng-if is a boolean', id: 3, img: "", choice: [{id: 1, name: "Yes"}, {id: 2, name: "No"}]},
-        //    {
-        //        title: 'What isn\'t Mobile Platform',
-        //        id: 4,
-        //        img: "",
-        //        choice: [{id: 1, name: "Android"}, {id: 2, name: "iPhone"}, {id: 3, name: "Alabar"}]
-        //    }
-        //
-        //
-        //];
-
-
-        var shuffleArray = function (array) {
-            var m = array.length, t, i;
-            // While there remain elements to shuffle
-            while (m) {
-                // Pick a remaining element…
-                i = Math.floor(Math.random() * m--);
-                // And swap it with the current element.
-                t = array[m];
-                array[m] = array[i];
-                array[i] = t;
-            }
-            return array;
-        };
-
-
-        $scope.selectAnswer = function (qid, aid) {
-            console.log("selectAnswer", qid, "select id : " + aid);
-
-            $scope.stopTimer();
-
-            if(qid==0&&aid==0){
-
-                $rootScope.money -= 5;
-                $localstorage.set('money', $rootScope.money);
-                $scope.TimeoutPopup();
-            }else{
-                var found = $filter('getById')($scope.question, qid);
-                console.log('found',found.answerId);
-
-                if (found.answerId==aid){
-                    $scope.successModal();
-                }else{
-                    $scope.failModal();
-                }
-            }
-
-
-
-
-
-           // $scope.selected = JSON.stringify(found);
-
-
-
-            //if (qid == 2 && aid == 2) {
-            //    $scope.successModal();
-            //
-            //} else if (qid == 1 && aid == 1) {
-            //    $scope.showConfirm();
-            //
-            //
-            //} else if (qid == 3 && aid == 1) {
-            //    $scope.showAlert();
-            //
-            //
-            //} else if (qid == 4 && aid == 1) {
-            //    $scope.showPopup();
-            //
-            //} else {
-            //    $scope.failModal();
-            //}
-
-            //console.log("selectAnswer",$scope.q.id) ;
-            //console.log("selectAnswer",$scope.q.id) ;
-
-        };
-
-
-        // Create the login modal that we will use later
-        $ionicModal.fromTemplateUrl('templates/success.html', {
-            scope: $scope,
-            animation: 'slide-in-up'
-        }).then(function (modal) {
-            $scope.success = modal;
-        });
-
-        $ionicModal.fromTemplateUrl('templates/fail.html', {
-            scope: $scope
-        }).then(function (modal) {
-            $scope.fail = modal;
-        });
-
-        // Triggered in the login modal to close it
-        $scope.closeModal = function () {
-            $scope.fail.hide();
-            $scope.success.hide();
-
-            $scope.slideCount =  ($ionicSlideBoxDelegate.slidesCount() ) ;
-
-            var slideCur = $ionicSlideBoxDelegate.currentIndex();
-            slideCur++ ;
-
-            console.log('slideCnt : '+$scope.slideCount+' slideCur : '+slideCur);
-
-            if(slideCur<$scope.slideCount) {
-                $ionicSlideBoxDelegate.next();
-
-                $scope.slideCount -- ;
-
-                if(slideCur<$scope.slideCount){
-                    $scope.startTimer();
-                }else{
-                    $scope.endGame();
-                }
-
-                console.log("Next Move!! total : "+ $scope.totalScore+" slide Count : "+$scope.slideCount );
-            }else{
-                $ionicSlideBoxDelegate.stop();
-                console.log("Finish !!");
-
-                $scope.stopTimer();
-            }
-
-            //console.log('slideCnt : '+slideCnt+' slideCur : '+slideCur);
-        };
-
-
-
-        $scope.endGame = function () {
-
-            console.log("End Game");
-            $scope.percentCal = Math.floor(($scope.totalScore*100)/$scope.slideCount) ;
-            $scope.percent =   $scope.percentCal+" % " ;
-
-            console.log("End Game : percent "+$scope.percentCal);
-
-            var star = 0 ;
-            if($scope.percentCal<60){
-                star = 1 ;
-                console.log('star',star);
-            }else if($scope.percentCal<80){
-                star = 2 ;
-                console.log('star',star);
-            }else if($scope.percentCal<=100){
-                star = 3 ;
-                console.log('star',star);
-            }
-
-
-            var NextIndex = "" ;
-            for ( var jk =0 ; jk < $scope.mode.length ; jk++ ){
-
-
-                if ($scope.mode[jk].id==$stateParams.playId){
-                    $scope.mode[jk].star = star ;
-
-
-
-                     NextIndex = jk+1 ;
-
-                    console.log("index [ "+jk+" ] id : "+ $scope.mode[jk].id +"star : "+star+" next id : "+NextIndex ) ;
-
-                }
-
-                if (jk==NextIndex){
-                    $scope.mode[jk].unlock = 1 ;
-                    console.log("NextIndex "+NextIndex+" unlock !!!"+$scope.mode[jk].id) ;
-                }
-
-            }
-
-
-            $localstorage.setObject('gameMode',$scope.mode );
-            $scope.UnlockPopup() ;
-
-            console.log('$localstorage',$localstorage.getObject('gameMode'));
-
-
-        };
-
-
-
-
-
-
-        $scope.failModal = function () {
-            $rootScope.money -= 5;
-            $localstorage.set('money', $rootScope.money);
-            $scope.fail.show();
-            $timeout(function () {
-                $scope.closeModal();
-            }, 1000);
-        };
-
-        $scope.successModal = function () {
-            $ionicLoading.show({
-                template: '<ion-spinner class="spinner-energized"></ion-spinner>Loading...'
-            });
-
-
-            $scope.totalScore ++ ;
-
-            $rootScope.money += 5;
-            $localstorage.set('money', $rootScope.money);
-            $scope.success.show();
-            $timeout(function () {
-                $scope.closeModal();
-                $ionicLoading.hide();
-            }, 1000);
-        };
-
-
-        $scope.TimeoutPopup = function () {
-            $scope.data = {};
-            // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                title: 'Time Out!!!',
-                subTitle: 'You not answer this question!',
-                scope: $scope,
-                buttons: [
-                    {
-                        text: '<b>OK</b>',
-                        type: 'button-positive',
-                        onClick: function (e){
-                            myPopup.close();
-                        },
-                        onTap: function (e) {
-                            return null;
-                        }
-                    }
-                ]
-            });
-            myPopup.then(function (res) {
-                $scope.closeModal();
-            });
-
-        };
-
-        $scope.UnlockPopup = function () {
-            $scope.data = {};
-            // An elaborate, custom popup
-            var myPopup = $ionicPopup.show({
-                title: 'ปลดล๊อกด่านถัดไป',
-                subTitle: 'You not answer this question!',
-                scope: $scope,
-                buttons: [
-                    {
-                        text: '<b>OK</b>',
-                        type: 'button-positive',
-                        onClick: function (e){
-                            myPopup.close();
-                        },
-                        onTap: function (e) {
-                            return null;
-                        }
-                    }
-                ]
-            });
-            myPopup.then(function (res) {
-
-            });
-
-        };
-
     })
 
 

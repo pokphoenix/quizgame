@@ -1,0 +1,162 @@
+
+@-webkit-keyframes starShow {
+    0% {
+        transform:rotate(0deg) scale(0);
+        opacity:1;
+    }
+    100% {
+        transform:rotate(360deg) scale(1);
+        opacity:1;
+    }
+}
+
+@-moz-keyframes starShow {
+    0% {
+        transform:rotate(0deg) scale(0);
+        opacity:1;
+    }
+    100% {
+        transform:rotate(360deg) scale(1);
+        opacity:1;
+    }
+}
+
+@-o-keyframes starShow {
+    0% {
+        transform:rotate(0deg) scale(0);
+        opacity:1;
+    }
+    100% {
+        transform:rotate(360deg) scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes starShow {
+    0% {
+        transform:rotate(0deg) scale(0);
+        opacity:1;
+    }
+    100% {
+        transform:rotate(360deg) scale(1);
+        opacity:1;
+    }
+}
+
+.cf3 {
+    position:relative;
+    height:auto;
+    width:100%;
+    margin:0 auto;
+}
+.cf3 img {
+    position:absolute;
+    left: 0;
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*margin: auto;*/
+    /*overflow: auto;*/
+    /*position: fixed;*/
+    /*right: 0;*/
+    /*top: 0;*/
+
+}
+
+.cf3 img.top {
+    -webkit-animation-name: starShow;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-direction: alternate;
+
+    -moz-animation-name: starShow;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-duration: 1s;
+    -moz-animation-direction: alternate;
+
+    -o-animation-name: starShow;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-iteration-count: 1;
+    -o-animation-duration: 1s;
+    -o-animation-direction: alternate;
+
+    animation-name: starShow;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+    animation-direction: alternate;
+}
+
+/*.cf3 img.bottom {*/
+/*-webkit-animation-name: starEmpty;*/
+/*-webkit-animation-timing-function: ease-in-out;*/
+/*-webkit-animation-iteration-count: 1;*/
+/*-webkit-animation-duration: 1s;*/
+/*-webkit-animation-direction: alternate;*/
+
+/*-moz-animation-name: starEmpty;*/
+/*-moz-animation-timing-function: ease-in-out;*/
+/*-moz-animation-iteration-count: 1;*/
+/*-moz-animation-duration: 1s;*/
+/*-moz-animation-direction: alternate;*/
+
+/*-o-animation-name: starEmpty;*/
+/*-o-animation-timing-function: ease-in-out;*/
+/*-o-animation-iteration-count: 1;*/
+/*-o-animation-duration: 1s;*/
+/*-o-animation-direction: alternate;*/
+
+/*animation-name: starEmpty;*/
+/*animation-timing-function: ease-in-out;*/
+/*animation-iteration-count: 1;*/
+/*animation-duration: 1s;*/
+/*animation-direction: alternate;*/
+/*}*/
+
+
+/*@-webkit-keyframes starEmpty {*/
+/*0% {*/
+/*transform:scale(1);*/
+/*opacity:1;*/
+/*}*/
+/*100% {*/
+/*transform:scale(1);*/
+/*opacity:0.0;*/
+/*}*/
+/*}*/
+
+/*@-moz-keyframes starEmpty {*/
+/*0% {*/
+/*transform:scale(1);*/
+/*opacity:1;*/
+/*}*/
+/*100% {*/
+/*transform:scale(1);*/
+/*opacity:0.0;*/
+/*}*/
+/*}*/
+
+/*@-o-keyframes starEmpty {*/
+/*0% {*/
+/*transform:scale(1);*/
+/*opacity:1;*/
+/*}*/
+/*100% {*/
+/*transform:scale(1);*/
+/*opacity:0.0;*/
+/*}*/
+/*}*/
+
+/*@keyframes starEmpty {*/
+/*0% {*/
+/*transform:scale(1);*/
+/*opacity:1;*/
+/*}*/
+/*100% {*/
+/*transform:scale(1);*/
+/*opacity:0.0;*/
+/*}*/
+/*}*/

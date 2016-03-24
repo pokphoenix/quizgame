@@ -1,6 +1,6 @@
 
 <ion-view view-title="คำถามชุดที่ {{ playId }} " hide-back-button="false"  cache-view="false" >
-  <ion-content style="background: #EEE;" ng-controller="PlayCtrl" class="has-subheader" >
+  <ion-content style="background: #EEE;"  >
 
 
 
@@ -107,31 +107,27 @@
       </ion-slide>
 
       <ion-slide >
-
         <div class="card " >
+
+
 
           <div class="item item-text-wrap" >
             <div class="row row-center"   >
               <div class="col text-center" >
                 <h3>สรุปคะแนน</h3>
-                {{ totalScore +" of "+slideCount }}
+                {{ totalScore +" of "+lastSlide }}
                 <br>
                 <h3><strong>{{ percent }}</strong></h3>
                 <a class="button button-block button-positive" ng-click="backtomain();">
                   จบเกม
                 </a>
               </div>
-
             </div>
           </div>
 
 
 
-
-
         </div>
-
-
       </ion-slide>
 
     </ion-slide-box>

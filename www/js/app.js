@@ -10,13 +10,15 @@ angular.module('starter', [
   'starter.controllers',
   'starter.services',
   'ionic.utils',
-
+  'timeatk.controllers',
+  'gameunlock.controllers',
+  'gamenormal.controllers',
   // load semi module
   'semi',
-  'semi.controllers',
+  'semi.controllers'
 ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$localstorage,$interval,$filter,$rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -30,15 +32,94 @@ angular.module('starter', [
       StatusBar.styleDefault();
     }
 
-    //$localstorage.set('name', 'Max');
-    //console.log($localstorage.get('name'));
-    //$localstorage.setObject('post', {
-    //  name: 'Thoughts',
-    //  text: 'Today was a good day'
-    //});
-    //
-    //var post = $localstorage.getObject('post');
-    //console.log(post);
+    var Exp =  parseInt($localstorage.get('Exp'));
+    if (Exp==null){
+      //console.log("Exp",Exp);
+      $localstorage.set('Exp', 0);
+    }
+
+    var Coin =  parseInt($localstorage.get('Coin'));
+    if (Coin==null){
+      //console.log("Coin",Coin);
+      $localstorage.set('Coin', 100);
+    }
+
+    var Life =  parseInt($localstorage.get('Life'));
+    if (Life==null){
+      //console.log("Life",Life);
+      $localstorage.set('Life', 1);
+    }
+
+  //--- ถ้าlogin อยู่จะเช็ค + Life ทุกๆ 5 นาที
+    var promise;
+    addLife();
+    promise = $interval(addLife,300000);
+
+    function addLife() {
+      var Life = parseInt($localstorage.get('Life'));
+
+      var CurrentDate = new Date().getTime() ;
+      var LastLogin = new Date($localstorage.get('lastLogin')).getTime()  ;
+      //console.log( "CurrentDate : "+CurrentDate , "LastLogin : "+LastLogin );
+      if(LastLogin!=CurrentDate){
+        //var millisecondsPerDay = 1000 * 60 * 60 * 24;
+        var millisecondsPerMin = 1000 * 60 * 5    ;
+        var millisBetween = CurrentDate - LastLogin ;
+        //console.log("addLife millisBetween : "+millisBetween);
+
+        var min =  Math.floor( millisBetween / millisecondsPerMin ) ;
+        //console.log("addLife min : "+min);
+        if (min>0){
+
+          var Life = parseInt($localstorage.get('Life'));
+          Life++ ;
+          $localstorage.set('Life', Life) ;
+          $localstorage.set('lastLogin', $filter('date')(new Date(), 'yyyy-MM-dd H:m:s') ) ;
+          //console.log('Add Life Every 5 min :'+Life);
+          $rootScope.life = Life ;
+
+        }
+
+      }
+
+    }
+
+
+
+
+    //--- เพิ่ม Life ตอน Login
+    var CurrentDate = new Date().getTime() ;
+    var LastLogin = new Date($localstorage.get('lastLogin')).getTime()  ;
+    //console.log( "CurrentDate : "+CurrentDate , "LastLogin : "+LastLogin );
+    if(LastLogin!=CurrentDate){
+      //var millisecondsPerDay = 1000 * 60 * 60 * 24;
+      var millisecondsPerMin = 1000 * 60 * 5  ;
+      var millisBetween = CurrentDate - LastLogin ;
+      //console.log("millisBetween : "+millisBetween);
+
+
+      var min =  Math.floor( millisBetween / millisecondsPerMin ) ;
+      //console.log("min : "+min);
+      if (min>0){
+
+        var Life = parseInt($localstorage.get('Life'));
+
+
+        if (min<1){
+          min = 1 ;
+        }
+
+
+        Life = Life*min ;
+
+        $localstorage.set('Life', Life ) ;
+        //console.log('Add Life when Login :'+Life);
+
+      }
+
+    }
+
+
 
   });
 })
@@ -89,12 +170,45 @@ angular.module('starter', [
 
       })
 
+      .state('game.unlock', {
+        url: '/unlock/:playId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/game/mode_unlock.html',
+            controller: 'GameUnlockCtrl'
+          }
+        }
+
+      })
+
+      .state('game.time', {
+        url: '/time',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/time.html',
+            controller: 'CategoryCtrl'
+          }
+        }
+
+      })
+
+      .state('game.attack', {
+        url: '/timeattack/:playId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/game/time_attack.html',
+            controller: 'TimeAtkCtrl'
+          }
+        }
+
+      })
 
       .state('game.play', {
         url: '/play/:playId',
         views: {
           'menuContent': {
-            templateUrl: 'templates/play.html'
+            templateUrl: 'templates/game/normal.html',
+            controller: 'GameNormalCtrl'
           }
         }
 
@@ -151,15 +265,25 @@ angular.module('starter', [
   // Each tab has its own nav history stack:
 
 
-  .state('tab.dash', {
+  .state('game.dash', {
     url: '/dash',
     views: {
-      'tab-dash': {
+      'menuContent': {
         templateUrl: 'templates/tab-dash.html',
         controller: 'DashCtrl'
       }
     }
   })
+
+      //.state('tab.dash', {
+      //  url: '/dash',
+      //  views: {
+      //    'tab-dash': {
+      //      templateUrl: 'templates/tab-dash.html',
+      //      controller: 'DashCtrl'
+      //    }
+      //  }
+      //})
 
   .state('tab.chats', {
       url: '/chats',
@@ -191,6 +315,6 @@ angular.module('starter', [
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/game/dash');
 
 });

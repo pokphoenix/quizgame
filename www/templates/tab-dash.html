@@ -1,117 +1,54 @@
-
 <style>
-  .row, .scroll {
-    height: 100%;
-  }
+    .row, .scroll {
+        height: 100%;
+    }
 </style>
-
-<ion-view view-title="Dashboard">
-
+<ion-view view-title=" Semi Game " hide-back-button="true" cache-view="false">
 
 
-  <ion-content class="padding has-tabs-top">
+    <ion-content class="padding">
 
 
-    <div class="row row-center">
+        <div class="row row-center">
 
-      <div class="col">
-
-
-
-        <a class="button button-block button-positive" href="#/game/category">
-        เริ่มเกม
-      </a>
+            <div class="col">
+                <a class="button button-block button-positive" ng-disabled="life < 1" href="#/game/category">
+                    เริ่มเกม
+                </a>
 
 
-        <a class="button button-block button-positive" href="#/game/mode">
-          ตะลุยด่าน
-        </a>
-        <a class="button button-block button-positive" href="#/game/time">
-          จับเวลา
-        </a>
+                <a class="button button-block button-positive" ng-disabled="life < 1" href="#/game/mode">
+                    ตะลุยด่าน
+                </a>
+                <a class="button button-block button-positive" ng-disabled="life < 1" href="#/game/time">
+                    จับเวลา
+                </a>
 
 
-        <a class="button button-block button-positive" href="#/semi/games">
-          SEMI Game!
-        </a>
+                <a class="button button-block button-positive" href="#/semi/games">
+                    SEMI Game!
+                </a>
 
-        <a class="button button-block button-positive" href="#/game/plays">
-          ตารางคะแนน
-        </a>
+                <a class="button button-block button-positive" href="#/game/plays">
+                    ตารางคะแนน
+                </a>
 
-        <a class="button button-block button-positive" href="#/app/search">
-          reset
-        </a>
+                <a class="button button-block button-positive" href="#/app/search">
+                    reset
+                </a>
 
 
+            </div>
 
-      </div>
+        </div>
 
+
+    </ion-content>
+
+    <div class="bar bar-footer">
+        <button class="button button-clear">Left</button>
+        <div class="title">Title</div>
+        <button class="button button-clear">Right</button>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<button class="button button-full">-->
-      <!--Default-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-light">-->
-      <!--button-light-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-stable">-->
-      <!--button-stable-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-positive">-->
-      <!--button-positive-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-calm">-->
-      <!--button-calm-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-balanced">-->
-      <!--button-balanced-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-energized">-->
-      <!--button-energized-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-assertive">-->
-      <!--button-assertive-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-royal">-->
-      <!--button-royal-->
-    <!--</button>-->
-
-    <!--<button class="button button-block button-dark">-->
-      <!--button-dark-->
-    <!--</button>-->
-
-  </ion-content>
-
-  <div class="bar bar-footer">
-    <button class="button button-clear">Left</button>
-    <div class="title">Title</div>
-    <button class="button button-clear">Right</button>
-  </div>
 
 </ion-view>
