@@ -14,8 +14,7 @@ angular.module('starter', [
   'gameunlock.controllers',
   'gamenormal.controllers',
   // load semi module
-  'semi',
-  'semi.controllers'
+
 ])
 
 .run(function($ionicPlatform,$localstorage,$interval,$filter,$rootScope) {
